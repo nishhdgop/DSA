@@ -1,0 +1,46 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addend(ListNode head,int data){
+        if(head==null){
+            head = new ListNode(data);
+            return head;
+        }
+        ListNode last = head;
+        ListNode new_node = new ListNode(data);
+        new_node.next=null;
+        while(last.next!=null){
+            last =last.next;
+        }
+        last.next = new_node;
+        return head;
+    }
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        List<Integer> ll = new ArrayList<Integer>();
+        while(head!=null){
+            ll.add(head.val);
+            head=head.next;
+        }
+        while(left<=right){
+            int temp = ll.get(left-1);
+            ll.set(left-1,ll.get(right-1)); 
+            ll.set(right-1,temp);
+            left++;
+            right--;
+        }
+        System.out.println(ll);
+        ListNode nhead=null;
+        for(int i=0;i<ll.size();i++){
+            nhead = addend(nhead,ll.get(i));
+        }
+        return nhead;
+    }
+}
