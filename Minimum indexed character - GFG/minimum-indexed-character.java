@@ -2,56 +2,50 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-
-
-// } Driver Code Ends
-//User function template for JAVA
-
-class Solution
+class GFG
 {
-    //Function to find the minimum indexed character.
-    public static int minIndexChar(String str, String patt)
+    public static void main(String[] args) throws IOException
     {
-        // Your code here
-        HashMap<Character,Integer>tm = new HashMap<>();
-        for(int i=0;i<str.length();i++){
-            if(tm.containsKey(str.charAt(i))==false){
-                tm.put(str.charAt(i),i);
-            }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String str = br.readLine().trim();
+            String patt = br.readLine().trim();
+            Solution obj = new Solution();
+            System.out.println(obj.printMinIndexChar(str, patt));
         }
-        int min=Integer.MAX_VALUE;
+    }
+}
+// } Driver Code Ends
+
+
+class Solution{
+    
+    // Function to find the character in patt which is present in str at min index
+    public static String printMinIndexChar(String S, String patt){
+        
+        // Your code here
+        HashMap<Character,Integer> hm =new HashMap<>();
+        for(int i=0;i<S.length();i++){
+            if(!hm.containsKey(S.charAt(i)))
+            hm.put(S.charAt(i),i);
+        }
+        int min = Integer.MAX_VALUE;
         for(int i=0;i<patt.length();i++){
-            if(tm.containsKey(patt.charAt(i))){
-                if(min>tm.get(patt.charAt(i))){
-                    min=tm.get(patt.charAt(i));
+            if(hm.containsKey(patt.charAt(i))){
+                if(min>hm.get(patt.charAt(i))){
+                    min=hm.get(patt.charAt(i));
                 }
             }
         }
-        if(min==Integer.MAX_VALUE){
-            return -1;
+        for(Map.Entry<Character,Integer> i:hm.entrySet()){
+            if(i.getValue()==min)
+            return ""+i.getKey();
         }
-        return min;
+        return "$";
+        // you don't need to print anything
+    
     }
+    
 }
-
-//{ Driver Code Starts.
-
-class GFG {
-	public static void main (String[] args) 
-	{
-		Scanner sc=new Scanner(System.in);
-		int t=sc.nextInt();
-		while(t>0)
-		{
-		    t--;
-		    
-		    String s1=sc.next();
-		    String s2=sc.next();
-		    
-		    int res = new Solution().minIndexChar(s1, s2);
-		    System.out.println(res);
-		}
-	}
-}
-
-// } Driver Code Ends
